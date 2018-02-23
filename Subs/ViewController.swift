@@ -17,14 +17,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return Players.count
-        case 1:
             return Players.count
         default:
             return 0
@@ -36,12 +34,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         switch indexPath.section {
         case 0:
-            cell.textLabel?.text = Players[indexPath.row].name
+            cell.textLabel?.text = Players[indexPath.row].name + " (" + Players[indexPath.row].subCount() + ")"
             cell.detailTextLabel?.text = Players[indexPath.row].fieldTime()
             cell.accessoryType = .detailButton
-        case 1:
-            cell.textLabel?.text = Players[indexPath.row].name
-            cell.detailTextLabel?.text = Players[indexPath.row].subCount()
+            
+            if (Players[indexPath.row].enabled) {
+                cell.textLabel?.isEnabled = true
+            } else {
+                cell.textLabel?.isEnabled = false
+            }
         default:
             cell.textLabel?.text = "This shouldn't happen"
         }
@@ -53,24 +54,42 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         switch section {
         case 0:
             return "On Field"
-        case 1:
-            return "Sub Count : Total On Field"
         default:
             return ""
         }
     }
 
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let enableAction = UIContextualAction(style: .normal, title: "enable") {
+            (action:UIContextualAction, sourceView:UIView, actionPerformed:(Bool) -> Void) in
+            
+            self.Players[indexPath.row].enabled = true
+            
+            tableView.reloadData()
+            actionPerformed(true)
+        }
+        
+        let disableAction = UIContextualAction(style: .normal, title: "disable") {
+            (action:UIContextualAction, sourceView:UIView, actionPerformed:(Bool) -> Void) in
+            
+            self.Players[indexPath.row].enabled = false
+            
+            tableView.reloadData()
+            actionPerformed(true)
+        }
+        
+        return UISwipeActionsConfiguration(actions: [enableAction, disableAction])
+    }
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let addAction = UIContextualAction(style: .normal, title: "+") {
             (action:UIContextualAction, sourceView:UIView, actionPerformed:(Bool) -> Void) in
             
             switch indexPath.section {
             case 0:
-                self.Players[indexPath.row].onTheField += 1
-                self.Players[indexPath.row].totalField += 1
-            case 1:
-                self.Players[indexPath.row].subbed += 1
-                self.Players[indexPath.row].onTheField = 0
+                if (self.Players[indexPath.row].enabled) {
+                    self.Players[indexPath.row].onTheField += 1
+                }
             default:
                 break
             }
@@ -86,15 +105,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             switch indexPath.section {
             case 0:
                 self.Players[indexPath.row].onTheField -= 1
-                self.Players[indexPath.row].totalField -= 1
-            case 1:
-                self.Players[indexPath.row].subbed -= 1
             default:
                 break
             }
             
             tableView.reloadData()
-            
             actionPerformed(true)
         }
 
@@ -104,15 +119,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             switch indexPath.section {
             case 0:
                 self.Players[indexPath.row].onTheField = 0
-            case 1:
-                self.Players[indexPath.row].subbed = 0
+                self.Players[indexPath.row].subbed += 1
             default:
                 break
             }
-
             
             tableView.reloadData()
-            
             actionPerformed(true)
         }
 
@@ -149,8 +161,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBAction func AddFieldTime(_ sender: Any) {
         for i in 0..<self.Players.count {
-            self.Players[i].onTheField += 1
-            self.Players[i].totalField += 1
+            if (self.Players[i].enabled) {
+                self.Players[i].onTheField += 1
+            }
         }
         
         self.taskTableView.reloadData()
@@ -158,16 +171,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     //  Create [String] arrays of tasks
     var Players = [
-        PlayerStat.init(name: "Alvin", totalField: 0, onTheField: 0, subbed: 0),
-        PlayerStat.init(name: "Brady", totalField: 0, onTheField: 0, subbed: 0),
-        PlayerStat.init(name: "Jack W", totalField: 0, onTheField: 0, subbed: 0),
-        PlayerStat.init(name: "Jackson", totalField: 0, onTheField: 0, subbed: 0),
-        PlayerStat.init(name: "Jahari", totalField: 0, onTheField: 0, subbed: 0),
-        PlayerStat.init(name: "Kaelan", totalField: 0, onTheField: 0, subbed: 0),
-        PlayerStat.init(name: "Nate", totalField: 0, onTheField: 0, subbed: 0),
-        PlayerStat.init(name: "Ruby", totalField: 0, onTheField: 0, subbed: 0),
-        PlayerStat.init(name: "Tyson", totalField: 0, onTheField: 0, subbed: 0),
-        PlayerStat.init(name: "Zack", totalField: 0, onTheField: 0, subbed: 0)
+        PlayerStat.init(name: "Alvin", totalField: 0, onTheField: 0, subbed: 0, enabled: true),
+        PlayerStat.init(name: "Brady", totalField: 0, onTheField: 0, subbed: 0, enabled: true),
+        PlayerStat.init(name: "Jack W", totalField: 0, onTheField: 0, subbed: 0, enabled: true),
+        PlayerStat.init(name: "Jackson", totalField: 0, onTheField: 0, subbed: 0, enabled: true),
+        PlayerStat.init(name: "Jahari", totalField: 0, onTheField: 0, subbed: 0, enabled: true),
+        PlayerStat.init(name: "Kaelan", totalField: 0, onTheField: 0, subbed: 0, enabled: true),
+        PlayerStat.init(name: "Nate", totalField: 0, onTheField: 0, subbed: 0, enabled: true),
+        PlayerStat.init(name: "Ruby", totalField: 0, onTheField: 0, subbed: 0, enabled: true),
+        PlayerStat.init(name: "Tyson", totalField: 0, onTheField: 0, subbed: 0, enabled: true),
+        PlayerStat.init(name: "Zack", totalField: 0, onTheField: 0, subbed: 0, enabled: true)
     ]
     
     override func viewDidLoad() {

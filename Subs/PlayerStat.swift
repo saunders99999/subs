@@ -13,17 +13,18 @@ struct PlayerStat {
     var totalField: Int
     var onTheField: Int
     var subbed: Int
+    var enabled: Bool
     
     func subCount() -> String {
-        var totalField = self.totalFieldTime()
-        return String(subbed) + " :" + totalField
+//        let totalField = self.totalFieldTime()
+        return String(subbed)
     }
     
     func fieldTime() -> String {
         var count = ":"
         
         for _ in stride(from: 1, through: onTheField, by: 1) {
-            count += "**"
+            count += "--"
         }
         return count
     }
@@ -32,7 +33,7 @@ struct PlayerStat {
         var count = ":"
         
         for _ in stride(from: 1, through: totalField, by: 1) {
-            count += "**"
+            count += "--"
         }
         return count
     }
