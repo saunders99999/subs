@@ -61,6 +61,16 @@
                                             <action selector="resetFieldTime:" destination="BYZ-38-t0r" id="9oX-Xb-4Jj"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem title="Add" id="SmN-t3-2AO">
+                                        <connections>
+                                            <action selector="AddPlayer:" destination="BYZ-38-t0r" id="yoE-OG-F3s"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Remove" id="sVx-g7-LOf">
+                                        <connections>
+                                            <action selector="RemovePlayer:" destination="BYZ-38-t0r" id="jnW-UO-6fb"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="rAt-l4-7tb"/>
                                     <barButtonItem title="+Field Time" id="Hxt-h6-ORy">
                                         <connections>

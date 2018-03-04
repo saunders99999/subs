@@ -24,7 +24,7 @@ struct PlayerStat {
         var count = ":"
         
         for _ in stride(from: 1, through: onTheField, by: 1) {
-            count += "--"
+            count += "---"
         }
         return count
     }
