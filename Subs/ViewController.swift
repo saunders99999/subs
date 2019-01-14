@@ -219,16 +219,21 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     //  Create [String] arrays of tasks
     var Players = [
-        PlayerStat.init(name: "Alvin", totalField: 0, onTheField: 0, subbed: 0, enabled: true),
-        PlayerStat.init(name: "Brady", totalField: 0, onTheField: 0, subbed: 0, enabled: true),
-        PlayerStat.init(name: "Jack W", totalField: 0, onTheField: 0, subbed: 0, enabled: true),
-        PlayerStat.init(name: "Jackson", totalField: 0, onTheField: 0, subbed: 0, enabled: true),
-        PlayerStat.init(name: "Jahari", totalField: 0, onTheField: 0, subbed: 0, enabled: true),
-        PlayerStat.init(name: "Kaelan", totalField: 0, onTheField: 0, subbed: 0, enabled: true),
-        PlayerStat.init(name: "Nate", totalField: 0, onTheField: 0, subbed: 0, enabled: true),
-        PlayerStat.init(name: "Ruby", totalField: 0, onTheField: 0, subbed: 0, enabled: true),
-        PlayerStat.init(name: "Tyson", totalField: 0, onTheField: 0, subbed: 0, enabled: true),
-        PlayerStat.init(name: "Zack", totalField: 0, onTheField: 0, subbed: 0, enabled: true)
+        PlayerStat.init(name: "Alvin", totalField: 0, onTheField: 0, subbed: 0, enabled: false),
+        PlayerStat.init(name: "Anthony", totalField: 0, onTheField: 0, subbed: 0, enabled: false),
+        PlayerStat.init(name: "Brady", totalField: 0, onTheField: 0, subbed: 0, enabled: false),
+        PlayerStat.init(name: "Grayden", totalField: 0, onTheField: 0, subbed: 0, enabled: false),
+        PlayerStat.init(name: "Jackson", totalField: 0, onTheField: 0, subbed: 0, enabled: false),
+        PlayerStat.init(name: "Jahari", totalField: 0, onTheField: 0, subbed: 0, enabled: false),
+        PlayerStat.init(name: "Kaelan", totalField: 0, onTheField: 0, subbed: 0, enabled: false),
+        PlayerStat.init(name: "Nate", totalField: 0, onTheField: 0, subbed: 0, enabled: false),
+        PlayerStat.init(name: "Neil", totalField: 0, onTheField: 0, subbed: 0, enabled: false),
+        PlayerStat.init(name: "Parker", totalField: 0, onTheField: 0, subbed: 0, enabled: false),
+        PlayerStat.init(name: "Ruby", totalField: 0, onTheField: 0, subbed: 0, enabled: false),
+        PlayerStat.init(name: "Sebas", totalField: 0, onTheField: 0, subbed: 0, enabled: false),
+        PlayerStat.init(name: "Sevi", totalField: 0, onTheField: 0, subbed: 0, enabled: false),
+        PlayerStat.init(name: "us", totalField: 0, onTheField: 0, subbed: 0, enabled: false),
+        PlayerStat.init(name: "them", totalField: 0, onTheField: 0, subbed: 0, enabled: false)
     ]
     
     override func viewDidLoad() {
